@@ -15,8 +15,8 @@ public class stream_Obj {
 
     public void updatePos() { // set the path of the stream objects
         this.pos.x = defaultPos.x + (float)(timePos);
-        this.pos.y = defaultPos.y + (float)(Mathf.Sin(Mathf.PI*timePos)*(-0.15*timePos*(timePos-6)));
-        this.pos.z = defaultPos.z + (float)(Mathf.Cos(Mathf.PI*timePos)*(-0.15*timePos*(timePos-6)));
+        this.pos.y = defaultPos.y + (float)(Mathf.Sin(Mathf.PI*timePos)*(-0.08*timePos*(timePos-12)));
+        this.pos.z = defaultPos.z + (float)(Mathf.Cos(Mathf.PI*timePos)*(-0.08*timePos*(timePos-12)));
     }
 }
 
@@ -24,9 +24,6 @@ namespace Controllers {
     public class streamOfCube : MonoBehaviour{
         private Transform streamHolder;
         [SerializeField] private GameObject cubePrefab = default;
-        public Vector3 streamStartPoint = new Vector3(-6, 1, 0);
-        public float streamSpeed = 0.05f;
-        public int objNb = 50;
         public List<stream_Obj> allStreamObj = new List<stream_Obj>();
 
         private void Awake() {
@@ -44,14 +41,50 @@ namespace Controllers {
         }
 
         private IEnumerator UpdateStream() {
+            Vector3 streamStartPoint = new Vector3(-6, 1, 0);
+            float streamSpeed = 0.02f;
+            int objNb = 1;
+            float inputTimer = 0.08f;
+            float tmpTimer = 0.0f;
             while (true) {
-                yield return new WaitForSeconds(0.05f);
+                yield return new WaitForSeconds(0.01f);
+
+                if (Input.GetKey("z")){
+                    if (tmpTimer < 0){
+                        objNb++;
+                        tmpTimer = inputTimer;
+                    }
+                }
+                if (Input.GetKey("s") && objNb > 0){
+                    if (tmpTimer < 0){
+                        objNb--;
+                        tmpTimer = inputTimer;
+                    }
+                }
+                if (Input.GetKey("d")){
+                    if (tmpTimer < 0){
+                        streamSpeed = streamSpeed*1.1f;
+                        tmpTimer = inputTimer;
+                    }
+                }
+                if (Input.GetKey("q")){
+                    if (tmpTimer < 0){
+                        streamSpeed = streamSpeed/1.1f;
+                        tmpTimer = inputTimer;
+                    }
+                }
+
+                if (tmpTimer >= 0){
+                    tmpTimer -= Time.deltaTime;
+                }
 
                 if (allStreamObj.Count < objNb){
                     allStreamObj.Add(new stream_Obj(streamStartPoint));
                 } else if (allStreamObj.Count > objNb){
                     allStreamObj.RemoveAt(0);
                 }
+
+                //Debug.Log(streamSpeed);
 
                 for (int i = 0; i < allStreamObj.Count; i++){
                     if (allStreamObj[i].pos.x > -streamStartPoint.x){
