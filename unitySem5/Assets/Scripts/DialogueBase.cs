@@ -1,14 +1,16 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 namespace DialogueSystem
 {
     public class DialogueBase : MonoBehaviour
     {
 
-        protected IEnumerator WriteText(string input, Text textHolder, float typingDelay, AudioClip clip)
+        protected IEnumerator OverwriteText(string input, TextMeshProUGUI textHolder, float typingDelay, AudioClip clip)
         {
+            textHolder.text = "";
             for (int i = 0; i < input.Length; i++)
             {
                 textHolder.text += input[i];
