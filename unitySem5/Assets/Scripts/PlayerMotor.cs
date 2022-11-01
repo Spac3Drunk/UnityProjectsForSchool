@@ -18,7 +18,7 @@ public class PlayerMotor : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         isGrounded = controller.isGrounded;
     }

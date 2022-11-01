@@ -16,7 +16,7 @@ public class BadGuysSpawner : MonoBehaviour
         spawnBadGuys();
     }
 
-    void Update()
+    void FixedUpdate()
     {
         countBadPawn(BadGuyHolder);
     }

@@ -17,10 +17,10 @@ public class BadGuys : MonoBehaviour
         newRoute();
     }
 
-    void Update(){
+    void FixedUpdate(){
         takeDmg(0.000f); //check if die
         checkRoute();
-        //Debug.Log(hp);
+        //Debug.Log(Time.timeScale);
     }
 
     private void newRoute(){

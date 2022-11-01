@@ -360,6 +360,7 @@
 "Assets/Scripts/BulletScript.cs"
 "Assets/Scripts/DialogueBase.cs"
 "Assets/Scripts/DialogueLine.cs"
+"Assets/Scripts/GameState.cs"
 "Assets/Scripts/InputManager.cs"
 "Assets/Scripts/PlayerLook.cs"
 "Assets/Scripts/PlayerMotor.cs"

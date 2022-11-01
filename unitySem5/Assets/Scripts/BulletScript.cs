@@ -16,7 +16,7 @@ public class BulletScript : MonoBehaviour
 
     public float maxLifetime;
 
-    private void Update(){
+    private void FixedUpdate(){
         maxLifetime -= Time.deltaTime;
         if (maxLifetime <= 0) Explode();
     }

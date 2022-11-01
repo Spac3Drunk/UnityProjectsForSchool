@@ -13,8 +13,6 @@ public class InputManager : MonoBehaviour
     private PlayerLook look;
     private Weapon weapon;
 
-    private bool uiState = false; //false = FPS, true = Menu
-
     // Start is called before the first frame update
     void Awake()
     {
@@ -28,32 +26,30 @@ public class InputManager : MonoBehaviour
         onFoot.Jump.performed += ctx => motor.Jump();
         onFoot.WeaponFire.performed += ctx => weapon.useWeapon();
         onFoot.WeaponReload.performed += ctx => weapon.Reload();
-        look.MouseLockAndInvisible(uiState);
+        look.MouseLockAndInvisible(GameState.pauseMenu);
         uiRelated.Echap.performed += ctx => {
-            uiState = !uiState;
-            look.MouseLockAndInvisible(uiState);
+            GameState.togglePause();
+            look.MouseLockAndInvisible(GameState.pauseMenu);
+            if (GameState.pauseMenu) {
+                onFoot.Disable();
+            }else {
+                onFoot.Enable();
+            }
         };
     }
 
     void FixedUpdate(){
-        if (!uiState)
-        {
             motor.ProcessMove(onFoot.Movements.ReadValue<Vector2>());
-        }
     }
 
     private void LateUpdate(){
-        if (!uiState)
-        {
             look.ProcessLook(onFoot.Look.ReadValue<Vector2>());
-        }
     }
 
     private void OnEnable(){
         onFoot.Enable();
         uiRelated.Enable();
     }
-
     private void OnDisable(){
         onFoot.Disable();
         uiRelated.Disable();
