@@ -1,0 +1,20 @@
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas quis efficitur arcu. Integer consectetur neque eu arcu cursus, et finibus mi suscipit.
+0,05
+Audio/sans
+Sprites/badCube
+
+Nullam lorem dui, sollicitudin vel elementum eu, commodo nec nunc. 
+0,05
+Audio/asriel_young
+Sprites/Player
+
+Duis vehicula nisi vitae ipsum auctor, sit amet ornare velit vulputate. Vestibulum dignissim vehicula efficitur.
+0,05
+Audio/sans
+Sprites/badCube
+
+BIP !!! BIP !!! BIP !!! BIP !!! BIP !!! BIP !!! BIP !!! BIP !!! BIP !!! BIP !!! BIP !!! BIP !!! BIP !!! BIP !!! BIP !!!
+0,02
+Audio/asriel_young
+Sprites/Player
