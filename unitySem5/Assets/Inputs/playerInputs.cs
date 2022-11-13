@@ -202,6 +202,34 @@ public partial class @PlayerInputs : IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""DialogueRelated"",
+            ""id"": ""f5594d1f-38c8-4157-a666-ded2d1ef8996"",
+            ""actions"": [
+                {
+                    ""name"": ""next dialogue"",
+                    ""type"": ""Button"",
+                    ""id"": ""b0aa5787-0e02-42a9-9836-754707e9d6c0"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""2bb84e2f-b3f6-4c3a-9dfd-de98d358ea44"",
+                    ""path"": ""<Keyboard>/rightArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""next dialogue"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": []
@@ -216,6 +244,9 @@ public partial class @PlayerInputs : IInputActionCollection2, IDisposable
         // UiRelated
         m_UiRelated = asset.FindActionMap("UiRelated", throwIfNotFound: true);
         m_UiRelated_Echap = m_UiRelated.FindAction("Echap", throwIfNotFound: true);
+        // DialogueRelated
+        m_DialogueRelated = asset.FindActionMap("DialogueRelated", throwIfNotFound: true);
+        m_DialogueRelated_nextdialogue = m_DialogueRelated.FindAction("next dialogue", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -369,6 +400,39 @@ public partial class @PlayerInputs : IInputActionCollection2, IDisposable
         }
     }
     public UiRelatedActions @UiRelated => new UiRelatedActions(this);
+
+    // DialogueRelated
+    private readonly InputActionMap m_DialogueRelated;
+    private IDialogueRelatedActions m_DialogueRelatedActionsCallbackInterface;
+    private readonly InputAction m_DialogueRelated_nextdialogue;
+    public struct DialogueRelatedActions
+    {
+        private @PlayerInputs m_Wrapper;
+        public DialogueRelatedActions(@PlayerInputs wrapper) { m_Wrapper = wrapper; }
+        public InputAction @nextdialogue => m_Wrapper.m_DialogueRelated_nextdialogue;
+        public InputActionMap Get() { return m_Wrapper.m_DialogueRelated; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(DialogueRelatedActions set) { return set.Get(); }
+        public void SetCallbacks(IDialogueRelatedActions instance)
+        {
+            if (m_Wrapper.m_DialogueRelatedActionsCallbackInterface != null)
+            {
+                @nextdialogue.started -= m_Wrapper.m_DialogueRelatedActionsCallbackInterface.OnNextdialogue;
+                @nextdialogue.performed -= m_Wrapper.m_DialogueRelatedActionsCallbackInterface.OnNextdialogue;
+                @nextdialogue.canceled -= m_Wrapper.m_DialogueRelatedActionsCallbackInterface.OnNextdialogue;
+            }
+            m_Wrapper.m_DialogueRelatedActionsCallbackInterface = instance;
+            if (instance != null)
+            {
+                @nextdialogue.started += instance.OnNextdialogue;
+                @nextdialogue.performed += instance.OnNextdialogue;
+                @nextdialogue.canceled += instance.OnNextdialogue;
+            }
+        }
+    }
+    public DialogueRelatedActions @DialogueRelated => new DialogueRelatedActions(this);
     public interface IOnFootActions
     {
         void OnMovements(InputAction.CallbackContext context);
@@ -380,5 +444,9 @@ public partial class @PlayerInputs : IInputActionCollection2, IDisposable
     public interface IUiRelatedActions
     {
         void OnEchap(InputAction.CallbackContext context);
+    }
+    public interface IDialogueRelatedActions
+    {
+        void OnNextdialogue(InputAction.CallbackContext context);
     }
 }

@@ -180,6 +180,34 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "DialogueRelated",
+            "id": "f5594d1f-38c8-4157-a666-ded2d1ef8996",
+            "actions": [
+                {
+                    "name": "next dialogue",
+                    "type": "Button",
+                    "id": "b0aa5787-0e02-42a9-9836-754707e9d6c0",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "2bb84e2f-b3f6-4c3a-9dfd-de98d358ea44",
+                    "path": "<Keyboard>/rightArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "next dialogue",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": []
