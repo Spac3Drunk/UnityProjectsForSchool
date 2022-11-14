@@ -18,7 +18,10 @@ public class BadGuys : MonoBehaviour
     //private Vector3 _direction;
 
     public AudioClip deathClip;
-    public AudioClip attackClip;
+
+    public GameObject loot1;
+    public GameObject loot2;
+    private Transform lastDmgPos;
 
     private bool hasMarkScore = false; //debug :D
 
@@ -71,6 +74,7 @@ public class BadGuys : MonoBehaviour
     }
 */
     public void takeDmg(float Damage){
+        lastDmgPos = this.transform;
         hp = hp - Damage;
         if(hp < 0){
             die();
@@ -82,6 +86,12 @@ public class BadGuys : MonoBehaviour
         if (!hasMarkScore){ // to make sure that you mark score once per kill
             hasMarkScore = true;
             GameState.markScore();
+            if (Random.Range(0.0f, 1.0f) < 0.1f){
+                Instantiate(loot1, lastDmgPos.position + new Vector3(0, 1, 0), Quaternion.identity);
+            }
+            if (Random.Range(0.0f, 1.0f) < 0.1f){
+                Instantiate(loot2, lastDmgPos.position + new Vector3(0, 1, 0), Quaternion.identity);
+            }
         }
         //Add a little delay, just to make sure everything works fine
         Invoke("selfDestroy", 0.05f);

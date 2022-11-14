@@ -4,17 +4,34 @@ using UnityEngine;
 
 public class HealPickup : MonoBehaviour
 {
+    private bool hasBeenUsed = false; //debug :D
     public GameObject playerObject;
     [SerializeField] private Transform targetPos;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
+    public float lifetime = 30;
+
+    void Awake(){
+        playerObject = GameObject.FindGameObjectsWithTag("Player")[0];
+        targetPos = playerObject.transform;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+    void FixedUpdate(){
+        if (Vector3.Distance(this.transform.position,targetPos.position) < 1)
+        {
+            if (!hasBeenUsed)
+            {
+                GameState.getHeal(10);
+                hasBeenUsed = true;
+            }
+            Invoke("selfDestroy", 0.05f);
+        }
+        if (lifetime < 0)
+        {
+            Invoke("selfDestroy", 0.05f);
+        }
+        lifetime -= Time.deltaTime;
+    }
+
+    private void selfDestroy(){
+        Destroy(gameObject);
     }
 }

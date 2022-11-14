@@ -136,7 +136,8 @@ MonoBehaviour:
   targetObject: {fileID: 0}
   targetPos: {fileID: 0}
   deathClip: {fileID: 8300000, guid: f875d50d09b5c374e9a31adc4b1cd568, type: 3}
-  attackClip: {fileID: 0}
+  loot1: {fileID: 2565758080946568272, guid: 21bf31c7f119a804085e81f989f86e95, type: 3}
+  loot2: {fileID: 8435686497491395226, guid: 8995305a02283aa438e73c1ff172e6ce, type: 3}
 --- !u!195 &8723643460113149282
 NavMeshAgent:
   m_ObjectHideFlags: 0
