@@ -297,8 +297,9 @@ MonoBehaviour:
   spread: 40
   reloadTime: 1.5
   timeBetweenShooting: 0.1
-  magazineSize: 100
-  bulletsPerTap: 1
+  magazineSize: 10
+  bulletsPerTap: 12
+  ammoConsumption: 1
   fpsCam: {fileID: 1474496818785125596}
   attackPoint: {fileID: 8028158296520517685}
   allowInvoke: 1

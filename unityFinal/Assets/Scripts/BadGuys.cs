@@ -8,17 +8,19 @@ public class BadGuys : MonoBehaviour
     public float hp = 3;
     //private float xDest;
     //private float yDest;
-    private float timer;
+    //private float timer;
 
     public GameObject targetObject;
     [SerializeField] private Transform targetPos;
     private NavMeshAgent navMeshAgent;
 
-    private Quaternion _lookRotation;
-    private Vector3 _direction;
+    //private Quaternion _lookRotation;
+    //private Vector3 _direction;
 
     public AudioClip deathClip;
     public AudioClip attackClip;
+
+    private bool hasMarkScore = false; //debug :D
 
     void Awake(){
         navMeshAgent = GetComponent<NavMeshAgent>();
@@ -31,6 +33,10 @@ public class BadGuys : MonoBehaviour
         if(navMeshAgent.isOnNavMesh)
         {
             navMeshAgent.destination = targetPos.position;
+        }
+        if (Vector3.Distance(this.transform.position,targetPos.position) < 1.4)
+        {
+            GameState.getHit();
         }
         //checkRoute();
         //Debug.Log(Time.timeScale);
@@ -72,8 +78,12 @@ public class BadGuys : MonoBehaviour
     }
 
     public void die(){
-        //Add a little delay, just to make sure everything works fine
         SoundManager.instance.PlaySound(deathClip);
+        if (!hasMarkScore){ // to make sure that you mark score once per kill
+            hasMarkScore = true;
+            GameState.markScore();
+        }
+        //Add a little delay, just to make sure everything works fine
         Invoke("selfDestroy", 0.05f);
     }
 

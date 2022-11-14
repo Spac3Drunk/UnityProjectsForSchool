@@ -47,7 +47,14 @@ public class InputManager : MonoBehaviour
     }
 
     void FixedUpdate(){
-            motor.ProcessMove(onFoot.Movements.ReadValue<Vector2>());
+        motor.ProcessMove(onFoot.Movements.ReadValue<Vector2>());
+
+        look.MouseLockAndInvisible(GameState.inDialogue);
+        if (GameState.inDialogue) {
+            onFoot.Disable();
+        }else {
+            onFoot.Enable();
+        }
     }
 
     private void LateUpdate(){

@@ -264,9 +264,9 @@ MonoBehaviour:
   badGuys:
     serializedVersion: 2
     m_Bits: 256
-  explosionDmg: 0.5
+  explosionDmg: 0.15
   explosionRange: 1.5
-  explosionForce: 5000
+  explosionForce: 600
   clip: {fileID: 8300000, guid: c9f8b2e467f00bb4d8a8ec384eab5a23, type: 3}
   maxLifetime: 10
 --- !u!96 &2443289743079100673

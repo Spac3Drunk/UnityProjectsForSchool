@@ -30,8 +30,10 @@ public class BadGuysSpawner : MonoBehaviour
     }
 
     public void countBadPawn(GameObject obj){
-        if (obj.transform.childCount < 25){
-            spawnBadGuys();
+        if (!GameState.inDialogue && !GameState.dead) {
+            if (obj.transform.childCount < 25) {
+                spawnBadGuys();
+            }
         }
     }
 

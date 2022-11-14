@@ -4,15 +4,17 @@ using UnityEngine;
 
 public class Weapon : MonoBehaviour
 {
-    //TODO recoil, muzzle flash, ammo display GUI, CrossHair, Parallax
+    //TODO recoil, muzzle flash, Parallax
     
     public GameObject bullet;
 
+    public static int bulletsLeft;
+
     public float shootForce;
     public float spread, reloadTime, timeBetweenShooting;
-    public int magazineSize, bulletsPerTap;
+    public int magazineSize, bulletsPerTap, ammoConsumption;
 
-    private int bulletsLeft, bulletsShot;
+    private int bulletsShot;
     private bool readyToShoot, reloading;
 
     public Camera fpsCam;
@@ -29,7 +31,8 @@ public class Weapon : MonoBehaviour
     }
 
     public void useWeapon(){
-        if (readyToShoot && !reloading && bulletsLeft > 0) {
+        if (readyToShoot && !reloading && bulletsLeft >= ammoConsumption) {
+            bulletsLeft -= ammoConsumption;
             bulletsShot = 0; // useful for shotgun
             Shoot();
         }
@@ -59,7 +62,6 @@ public class Weapon : MonoBehaviour
         currentBullet.transform.forward = directionWithSpread.normalized;
         currentBullet.GetComponent<Rigidbody>().AddForce(directionWithSpread.normalized * shootForce, ForceMode.Impulse);
 
-        bulletsLeft--;
         bulletsShot++;
 
         //Invoke resetShot function (if not already invoked), with your timeBetweenShooting
@@ -69,7 +71,7 @@ public class Weapon : MonoBehaviour
         }
 
         //repeat shoot function for shotgun
-        if (bulletsShot < bulletsPerTap && bulletsLeft > (bulletsPerTap - bulletsShot)) {
+        if ((bulletsPerTap - bulletsShot) > 0 ) {
             Shoot();
         }
     }
@@ -89,7 +91,7 @@ public class Weapon : MonoBehaviour
     private void ReloadFinished()
     {
         //Fill magazine
-        bulletsLeft = magazineSize;
+        bulletsLeft += GameState.useAmmoStock((magazineSize - bulletsLeft), ammoConsumption);
         reloading = false;
     }
 }
